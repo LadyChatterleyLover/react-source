@@ -1,3 +1,4 @@
+import React, { ReactElement } from 'react'
 import { useState, CSSProperties, UIEvent } from 'react'
 import throttle from 'lodash/throttle'
 
@@ -12,12 +13,16 @@ interface Props {
     style: CSSProperties
     index: number
     // eslint-disable-next-line no-undef
-  }) => JSX.Element
+  }) => ReactElement
 }
 
 const FixedSizeList = (props: Props) => {
-  const { containerHeight, itemHeight, itemCount, children } = props
-  const Component = children
+  const {
+    containerHeight,
+    itemHeight,
+    itemCount,
+    children: ChildrenComponent,
+  } = props
   const contentHeight = itemHeight * itemCount
   const [scrollTop, setScrollTop] = useState(0)
 
@@ -36,7 +41,9 @@ const FixedSizeList = (props: Props) => {
 
   const items = []
   for (let i = startIdx; i <= endIdx; i++) {
-    items.push(<Component key={i} index={i} style={{ height: itemHeight }} />)
+    items.push(
+      <ChildrenComponent key={i} index={i} style={{ height: itemHeight }} />
+    )
   }
 
   const onScroll = throttle((e: UIEvent<HTMLDivElement>) => {

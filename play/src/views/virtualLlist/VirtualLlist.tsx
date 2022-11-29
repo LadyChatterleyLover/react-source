@@ -1,5 +1,6 @@
 import { CSSProperties } from 'react'
 import { FixedSizeList } from '@dudu/react-virtual-list'
+import VariableSizeListView from './VariableSizeListView'
 
 const Item = ({ style, index }: { style: CSSProperties; index: number }) => {
   return (
@@ -31,7 +32,9 @@ const VirtualLlist = () => {
           </FixedSizeList>
         </div>
       </div>
-      <div className="flex-1">1</div>
+      <div className="flex-1">
+        <VariableSizeListView />
+      </div>
     </div>
   )
 }
